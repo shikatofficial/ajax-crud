@@ -108,7 +108,7 @@
 
                 let action = $('#updateProductForm').attr('action');
                 $.ajax({
-                    url: action,
+                    url: "{{ url('products') }}/" + up_id,
                     method: 'put',
                     data: {name: up_name, price: up_price, description: up_description},
                     success: function(res) {
