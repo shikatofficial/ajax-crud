@@ -20,6 +20,12 @@
 
             <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addModal">Add Product</a>
 
+            <!-- <input type="text" name="search" id="search" class="my-3 form-control" placeholder="Search here..."> -->
+            <form id="searchForm" class="my-3 text-right">
+              <input type="text" id="searchInput" name="query" placeholder="Search...">
+              <button type="submit">Search</button>
+          </form>
+
             <div class="table-data">
             <table class="table table-bordered">
                 <thead>

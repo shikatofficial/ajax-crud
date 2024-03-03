@@ -75,21 +75,21 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-     public function update(Request $request, $id)
-     {
-         $request->validate([
-             'name' => 'required',
-             'price' => 'required|numeric',
-             'description' => 'required',
-         ]);
-     
-         $product = Product::find($id);
-     
-         $product->update($request->all());
-     
-         return response()->json(['status' => 'success']);
-     }
-     
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'description' => 'required',
+        ]);
+
+        $product = Product::find($id);
+
+        $product->update($request->all());
+
+        return response()->json(['status' => 'success']);
+    }
+
 
 
     /**
@@ -102,4 +102,37 @@ class ProductController extends Controller
 
         return response()->json(['status' => 'success'])->with('success', 'Product deleted');
     }
+
+    public function pagination(Request $request)
+    {
+        // if($request->ajax()){
+        //     $products = Product::query()
+
+        //                 ->when($request->seach_term, function($q)use($request) {
+        //                 $q->where('name', 'like', '%'.$request->seach_term.'%')
+        //                 ->orWhere('description', 'like', '%'.$request->seach_term.'%');
+        //                 })
+        //                 ->paginate(5);
+
+        //     return view('partial.pagination_product', compact('products'))->render();
+        //     }
+
+        $products = Product::latest()->paginate(5);
+        $html = view('partial.pagination_product', compact('products'))->render();
+        return response()->json(['html' => $html]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $products = Product::where('name', 'like', "%$query%")
+            ->orWhere('description', 'like', "%$query%")
+            ->paginate(5);
+
+        return view('partial.pagination_product', compact('products'))->render();
+    }
+
+
+
 }

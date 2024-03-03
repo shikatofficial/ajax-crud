@@ -5,12 +5,15 @@ use Illuminate\Support\Facades\Route;
 
 
 // Route::get('/', function () {
-//     return redirect()->route("products.index");
+//     return view("welcome");
 // });
 
 Route::get('/', function () {
-    return view("welcome");
+    return redirect()->route("products.index");
 });
 
 Route::resource('products', ProductController::class);
-// Route::post('/products/{id}', [ProductController::class, 'update'])->name('products.update');
+// Route::get('/pagination/paginate-data', [ProductController::class, 'pagination']);
+
+Route::get('/search', [ProductController::class, 'search'])->name('products.search');
+

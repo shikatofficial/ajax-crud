@@ -128,5 +128,50 @@
                     }
                 });
             });
+
+            //search product
+
+            $(document).on('submit', '#searchForm', function(e){
+                e.preventDefault();
+
+                let query = $('#searchInput').val();
+
+                $.ajax({
+                    url: "{{ route('products.search') }}",
+                    type: 'GET',
+                    data: {
+                        query: query
+                    },
+                    success: function (response) {
+                        $('.table-data').html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+
+
+            //paginator
+            // $(document).on('click', '.pagination a', function(e){
+            //     e.preventDefault();
+
+            //     let page = $(this).attr('href').split('page=')[1];
+            //     product(page);
+            // });
+
+            // function product(page){
+            //     $.ajax({
+            //         url: "/pagination/paginate-data?page=" + page,
+            //         success: function(response){
+            //             $('.table-data').html(response.html);
+            //         },
+            //         error: function(xhr, status, error){
+            //             console.log(error);
+            //         }
+            //     });
+            // }
+
+
         });
     </script>
