@@ -4,39 +4,7 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-    <script>
-    document.querySelectorAll('.btnDelete').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this!",
-                icon: "warning",
-                buttons: {
-                    cancel: {
-                        text: "Cancel",
-                        value: null,
-                        visible: true,
-                        className: "btn btn-dark" 
-                    },
-                    confirm: {
-                        text: "Delete",
-                        value: true,
-                        visible: true,
-                        className: "btn btn-danger" 
-                    }
-                },
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    btn.closest('.deleteForm').submit();
-                }
-            });
-            
-            document.querySelector('.swal-modal').classList.add('alert', 'alert-light'); 
-        });
-    });
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         $.ajaxSetup({
@@ -131,27 +99,40 @@
             });
 
             // Delete Product
-            $(document).on('click', '.delete-product', function (e) {
-                e.preventDefault();
+$(document).on('click', '.delete-product', function (e) {
+    e.preventDefault();
 
-                let productId = $(this).data('id');
+    let productId = $(this).data('id');
 
-                $.ajax({
-                    url: "{{ url('products') }}/" + productId,
-                    type: 'DELETE',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                    },
-                    success: function (res) {
-                        if (res.status == 'success') {
-                            $('.table').load(location.href + ' .table');
-                        }
-                    },
-                    error: function (err) {
-                        console.log(err);
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You won\'t be able to revert this!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Delete'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "{{ url('products') }}/" + productId,
+                type: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function (res) {
+                    if (res.status == 'success') {
+                        $('.table').load(location.href + ' .table');
                     }
-                });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
             });
+        }
+    });
+});
+
 
 
         });

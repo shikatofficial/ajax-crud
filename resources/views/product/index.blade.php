@@ -51,14 +51,8 @@
                           data-description="{{ $product->description }}"
                           >Edit</a>
 
-                          <a href="#" class="btn btn-danger ml-2 delete-product btnDelete" data-id="{{ $product->id }}">Delete</a>
+                          <a href="#" class="btn btn-danger ml-2 delete-product" data-id="{{ $product->id }}">Delete</a>
 
-                          <!-- <form class="deleteForm"
-                                                    action="{{ route('products.destroy', $product->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                            <button type="submit" href="#" class="btn btn-danger ml-2">Delete</button>
-                          </form> -->
                       </td>
                   </tr>
               @endforeach

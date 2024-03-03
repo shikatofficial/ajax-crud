@@ -1,5 +1,5 @@
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-<form action="{{ route('products.update', $product->id) }}" method="post" id="updateProductForm">
+<form action="{{ isset($product) ? route('products.update', $product->id) : '#' }}" method="post" id="updateProductForm">
     @csrf
     @method('PUT')
         <div class="modal-dialog" role="document">
