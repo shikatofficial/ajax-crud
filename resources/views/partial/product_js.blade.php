@@ -17,15 +17,12 @@
         $(document).ready(function() {
 
             // add product
-
             $(document).on('click', '.add_product', function (e) {
                 e.preventDefault();
 
                 let name = $('#name').val();
                 let price = $('#price').val();
                 let description = $('#description').val();
-
-                // console.log(name+price+description);
 
                 $.ajax({
                     url:"{{ route('products.store')}}",
@@ -51,7 +48,6 @@
             });
 
             // Edit Product
-
             $(document).on('click', '.update-product-form', function (e) {
                 let id = $(this).data('id');
                 let name = $(this).data('name');
@@ -99,41 +95,38 @@
             });
 
             // Delete Product
-$(document).on('click', '.delete-product', function (e) {
-    e.preventDefault();
+            $(document).on('click', '.delete-product', function (e) {
+                e.preventDefault();
 
-    let productId = $(this).data('id');
+                let productId = $(this).data('id');
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: 'You won\'t be able to revert this!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Delete'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: "{{ url('products') }}/" + productId,
-                type: 'DELETE',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                },
-                success: function (res) {
-                    if (res.status == 'success') {
-                        $('.table').load(location.href + ' .table');
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You won\'t be able to revert this!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Delete'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ url('products') }}/" + productId,
+                            type: 'DELETE',
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                            },
+                            success: function (res) {
+                                if (res.status == 'success') {
+                                    $('.table').load(location.href + ' .table');
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                            }
+                        });
                     }
-                },
-                error: function (err) {
-                    console.log(err);
-                }
+                });
             });
-        }
-    });
-});
-
-
-
         });
     </script>
