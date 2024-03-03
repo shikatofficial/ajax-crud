@@ -75,7 +75,6 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-
      public function update(Request $request, $id)
      {
          $request->validate([
@@ -101,6 +100,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['status' => 'success'])->with('success', 'Product deleted');
     }
 }
