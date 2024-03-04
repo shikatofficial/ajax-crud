@@ -21,13 +21,14 @@
                 e.preventDefault();
 
                 let name = $('#name').val();
+                let email = $('#email').val();
                 let price = $('#price').val();
                 let description = $('#description').val();
 
                 $.ajax({
                     url:"{{ route('products.store')}}",
                     method:'post',
-                    data:{name:name,price:price,description:description},
+                    data:{name:name,email:email,price:price,description:description},
                     success: function(res) {
                         if (res.status == 'success') {
                             $('#addModal form').trigger('reset');
@@ -51,11 +52,13 @@
             $(document).on('click', '.update-product-form', function (e) {
                 let id = $(this).data('id');
                 let name = $(this).data('name');
+                let email = $(this).data('email');
                 let price = $(this).data('price');
                 let description = $(this).data('description');
 
                 $('#up_id').val(id);
                 $('#up_name').val(name);
+                $('#up_email').val(email);
                 $('#up_price').val(price);
                 $('#up_description').val(description);
             });
@@ -67,6 +70,7 @@
 
                 let up_id = $('#up_id').val();
                 let up_name = $('#up_name').val();
+                let up_email = $('#up_email').val();
                 let up_price = $('#up_price').val();
                 let up_description = $('#up_description').val();
 
@@ -74,7 +78,7 @@
                 $.ajax({
                     url: "{{ url('products') }}/" + up_id,
                     method: 'put',
-                    data: {name: up_name, price: up_price, description: up_description},
+                    data: {name: up_name, email: up_email, price: up_price, description: up_description},
                     success: function(res) {
                         if (res.status == 'success') {
                             $('#updateModal form').trigger('reset');

@@ -32,6 +32,7 @@
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Price</th>
                     <th scope="col">Description</th>
                     <th scope="col">Action</th>
@@ -43,6 +44,7 @@
                 <tr>
                       <th scope="row">{{ $key+1 }}</th>
                       <td>{{ $product->name }}</td>
+                      <td>{{ $product->email }}</td>
                       <td>{{ $product->price }}</td>
                       <td>{{ $product->description }}</td>
                       <td class="d-flex">
@@ -52,6 +54,7 @@
                           data-target="#updateModal"
                           data-id="{{ $product->id }}"
                           data-name="{{ $product->name }}"
+                          data-email="{{ $product->email }}"
                           data-price="{{ $product->price }}"
                           data-description="{{ $product->description }}"
                           >Edit</a>

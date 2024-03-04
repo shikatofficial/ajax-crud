@@ -22,6 +22,11 @@
           </div>
 
           <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+          </div>
+
+          <div class="form-group">
             <label for="price">Price:</label>
             <input type="text" class="form-control" name="price" id="price" placeholder="Price">
           </div>

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
@@ -32,12 +34,14 @@ class ProductController extends Controller
         $request->validate(
             [
                 'name' => 'required|unique:products',
+                'email' => 'required|unique:products',
                 'price' => 'required',
                 'description' => 'required',
             ],
             [
                 'name.required' => 'Name is required.',
                 'name.unique' => 'Name should not be same.',
+                'email.unique' => 'Email should be unique.',
                 'price.required' => 'Price is required.',
                 'description.required' => 'Description is required.',
             ]
@@ -46,10 +50,18 @@ class ProductController extends Controller
         $product = new Product();
 
         $product->name = $request->name;
+        $product->email = $request->email;
         $product->price = $request->price;
         $product->description = $request->description;
 
         $product->save();
+
+        $data = [
+            'title' => 'My title',
+            'subject' => 'My Subject'
+        ];
+        
+        Mail::to('shikatmahmud@gmail.com')->send(new SendMail($data));
 
         return response()->json([
             'status' => 'success',
@@ -79,6 +91,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            'email' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
         ]);
@@ -127,6 +140,7 @@ class ProductController extends Controller
         $query = $request->input('query');
 
         $products = Product::where('name', 'like', "%$query%")
+            ->orWhere('email', 'like', "%$query%")
             ->orWhere('description', 'like', "%$query%")
             ->paginate(5);
 

@@ -20,6 +20,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="up_email">Email:</label>
+                        <input type="text" class="form-control" name="name" id="up_email" placeholder="Product Name">
+                    </div>
+
+                    <div class="form-group">
                         <label for="up_price">Price:</label>
                         <input type="text" class="form-control" name="price" id="up_price" placeholder="Price">
                     </div>
