@@ -56,12 +56,16 @@ class ProductController extends Controller
 
         $product->save();
 
+        $mail_subject = 'Mail ' . $product->name . ' details';
+        $mail_title = $product->name . ' information';
+        $mail_email = $product->email;
+
         $data = [
-            'title' => 'My title',
-            'subject' => 'My Subject'
+            'subject' => $mail_subject,
+            'title' => $mail_title,
         ];
         
-        Mail::to('shikatmahmud@gmail.com')->send(new SendMail($data));
+        Mail::to($mail_email)->send(new SendMail($data));
 
         return response()->json([
             'status' => 'success',
