@@ -15,7 +15,7 @@
     <div class="container">
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-8">
+        <div class="col-md-12">
             <h2 class="my-5"> <a href="{{ route('products.index')}}" class="text-decoration-none text-reset">Products</a></h2>
 
             <a href="#" class="btn btn-primary my-3" data-toggle="modal" data-target="#addModal">Add Product</a>
